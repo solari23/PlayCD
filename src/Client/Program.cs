@@ -18,6 +18,8 @@ public static class Program
             {
                 // Add services to the DI container.
                 services.AddTransient<PlayFabulous>();
+                services.AddSingleton<IOService>();
+                services.AddSingleton<LocalSaveStore>();
 
                 // Bind configuration objects.
                 var configRoot = context.Configuration;
