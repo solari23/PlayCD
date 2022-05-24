@@ -18,7 +18,7 @@ public class LocalSaveStore
     public LocalSaveStore()
         : this(DefaultSaveDataDirectory)
     {
-
+        // Empty.
     }
 
     public LocalSaveStore(string saveDataDirectory)

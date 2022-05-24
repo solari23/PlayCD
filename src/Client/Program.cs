@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using PlayFab;
 using PlayFabulous.Core.Config;
 
 namespace PlayFabulous.Client;
@@ -20,6 +22,7 @@ public static class Program
                 services.AddTransient<PlayFabulous>();
                 services.AddSingleton<IOService>();
                 services.AddSingleton<LocalSaveStore>();
+                services.AddSingleton<PlayerInfoService>();
 
                 // Bind configuration objects.
                 var configRoot = context.Configuration;
@@ -27,7 +30,15 @@ public static class Program
             })
             .Build();
 
+        var playFabConfig = host.Services.GetRequiredService<IOptions<PlayFabConfig>>().Value;
+        InitializePlayFabSdk(playFabConfig);
+
         var game = host.Services.GetRequiredService<PlayFabulous>();
         await game.RunAsync();
+    }
+
+    private static void InitializePlayFabSdk(PlayFabConfig config)
+    {
+        PlayFabSettings.staticSettings.TitleId = config.TitleId;
     }
 }
