@@ -9,7 +9,6 @@ public class PlayerInfoService
     private LocalSaveStore LocalSaveStore { get; }
 
     public PlayerInfoService(
-        IOService ioService,
         LocalSaveStore localSaveStore)
     {
         this.LocalSaveStore = localSaveStore;

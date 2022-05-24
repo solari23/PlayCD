@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using PlayFab;
+using PlayFabulous.Core;
 using PlayFabulous.Core.Config;
 
 namespace PlayFabulous.Client;
@@ -23,6 +24,7 @@ public static class Program
                 services.AddSingleton<IOService>();
                 services.AddSingleton<LocalSaveStore>();
                 services.AddSingleton<PlayerInfoService>();
+                services.AddSingleton<IGameDataProvider, CachingGameDataProvider>();
 
                 // Bind configuration objects.
                 var configRoot = context.Configuration;
